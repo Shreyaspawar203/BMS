@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author lenovo
+ * @author lenovo Shreyas
  */
 public class ConnectionProvider {
     public static Connection main(){

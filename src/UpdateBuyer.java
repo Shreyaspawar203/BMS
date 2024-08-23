@@ -2,6 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
+import javax.swing.*;
+import java.awt.Color;
+import Project.ConnectionProvider.*;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 
 /**
  *
@@ -40,7 +48,7 @@ public class UpdateBuyer extends javax.swing.JFrame {
         jTextField2 = new javax.swing.JTextField();
         jTextField3 = new javax.swing.JTextField();
         jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        AddressField = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
         jButton2 = new javax.swing.JButton();
@@ -66,6 +74,11 @@ public class UpdateBuyer extends javax.swing.JFrame {
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(107, 93, -1, -1));
 
         jTextField1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 90, 150, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/search.png"))); // NOI18N
@@ -111,13 +124,13 @@ public class UpdateBuyer extends javax.swing.JFrame {
         jTextField4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(257, 234, 250, -1));
 
-        jTextField5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
+        AddressField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        AddressField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+                AddressFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField5, new org.netbeans.lib.awtextra.AbsoluteConstraints(257, 272, 250, -1));
+        getContentPane().add(AddressField, new org.netbeans.lib.awtextra.AbsoluteConstraints(257, 272, 250, -1));
 
         jTextField6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         getContentPane().add(jTextField6, new org.netbeans.lib.awtextra.AbsoluteConstraints(257, 316, 250, -1));
@@ -126,16 +139,31 @@ public class UpdateBuyer extends javax.swing.JFrame {
         jButton2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/save.png"))); // NOI18N
         jButton2.setText("Update");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 382, -1, -1));
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Reset.png"))); // NOI18N
         jButton3.setText("Reset");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(268, 382, -1, -1));
 
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/close Jframe.png"))); // NOI18N
         jButton4.setText("Close");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(429, 382, -1, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/all page background image.png"))); // NOI18N
@@ -146,15 +174,96 @@ public class UpdateBuyer extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+try
+ {
+           Connection con=Project.ConnectionProvider.main();
+           Statement st=con.createStatement();
+            //PreparedStatement stmt = con.prepareStatement();
+            String ContactNo=jTextField1.getText();
+            ResultSet rs = st.executeQuery("select *from buyer where ContactNo='"+ContactNo+"'");
+            //("select *from buyer where ContactNo='"+ContactNo+"'");
+            if (rs.next())
+            {
+              jTextField2.setText(rs.getString(1));
+             jTextField3.setText(rs.getString(2));
+              jTextField4.setText(rs.getString(3));
+             AddressField.setText(rs.getString(4));
+              jTextField6.setText(rs.getString(5));
+              jTextField1.setEditable(false);
+              
+             }
+           else
+               JOptionPane.showMessageDialog(null,"ContactNo Does not Exist");
+}catch(Exception e)
+        {
+           JOptionPane.showMessageDialog(null, e);
+       }
+              
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField3ActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }                                           
+
+    private void AddressFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddressFieldActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_AddressFieldActionPerformed
+        
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+         setVisible(false);
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        setVisible(false);
+        new UpdateBuyer().setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        String name=jTextField2.getText();
+        String ContactNo=jTextField3.getText();
+        String EmailID=jTextField4.getText();
+        String Address=AddressField.getText();
+         String Gender=jTextField6.getText();
+         try
+         {
+         Connection con=Project.ConnectionProvider.main();
+          Statement st=con.createStatement();
+              String command = "UPDATE buyer SET name = ?, contactNo = ?, email = ?, address = ?, gender = ? WHERE ContactNo = ?";
+             PreparedStatement addstmt1 = con.prepareStatement(command);
+             addstmt1.setObject(1, name);        // Assuming 'name' is a String
+             addstmt1.setObject(2, ContactNo);   // Assuming 'ContactNo' is a String
+             addstmt1.setObject(3, EmailID);     // Assuming 'EmailID' is a String
+             addstmt1.setObject(4, Address);     // Assuming 'Address' is a String
+             addstmt1.setObject(5, Gender);
+             addstmt1.setObject(6, ContactNo);          // The 'id' of the record to update
+             addstmt1.executeUpdate();
+             JOptionPane.showMessageDialog(null,"SuccessFully Updated ");
+             setVisible(false);
+             new UpdateBuyer().setVisible(true);
+             
+    }                                        
+         catch(Exception e)
+                 {
+                 JOptionPane.showMessageDialog(null, e);
+                 }
+
+    //GEN-LAST:event_jButton2ActionPerformed
+        
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -192,6 +301,7 @@ public class UpdateBuyer extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField AddressField;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -212,7 +322,6 @@ public class UpdateBuyer extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
 }
