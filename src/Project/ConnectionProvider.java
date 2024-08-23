@@ -22,6 +22,7 @@ public class ConnectionProvider {
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(ConnectionProvider.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
 }
     

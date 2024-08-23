@@ -142,7 +142,7 @@ public class NewBuyer extends javax.swing.JFrame {
         getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(228, 216, 250, -1));
 
         jComboBox1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female", "Others", " " }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "None", "Male", "Female", "Others", " " }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -290,11 +290,18 @@ public class NewBuyer extends javax.swing.JFrame {
         String EmailID=jTextField3.getText();
         String Address=jTextField4.getText();
         String Gender=(String)jComboBox1.getSelectedItem();
+        
+       
         try{
           Connection con=Project.ConnectionProvider.main();
-          Statement st=con.createStatement();
-          st.executeUpdate("insert into buyer values('"+name+"','"+ContactNo+"','"+EmailID+"','"+Address+"','"+Gender+"')");
-
+          String command = "INSERT INTO buyer(name,contactNo,email,address,gender) VALUES(?,?,?,?,?)";
+          PreparedStatement addstmt1 = con.prepareStatement(command);
+          addstmt1.setObject(1,name);
+            addstmt1.setObject(2,ContactNo);
+            addstmt1.setObject(3,EmailID);
+            addstmt1.setObject(4,Address);
+            addstmt1.setObject(5,Gender);
+            addstmt1.execute();
           JOptionPane.showMessageDialog(null,"Successfully Updated");
           setVisible(false);
           new NewBuyer().setVisible(true);
@@ -302,7 +309,7 @@ public class NewBuyer extends javax.swing.JFrame {
         }
         catch(Exception e)
         {
-           JOptionPane.showMessageDialog(null,"Mobile Number Already Exist");
+           JOptionPane.showMessageDialog(null,e);
         }
             
         
