@@ -1,7 +1,12 @@
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import java.awt.Color;
+import Project.ConnectionProvider.*;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.swing.JTable;
-import javax.sql.*;
-import Project.ConnectionProvider;
+import net.proteanit.sql.DbUtils; 
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -103,7 +108,7 @@ public class ProductDetails extends javax.swing.JFrame {
         // TODO add your handling code here:
         try
         {
-            Connection con=ConnectionProvider.getCon();
+            Connection con=Project.ConnectionProvider.main();
             Statement st=con.createStatement();
             ResultSet rs=st.executeQuery("select *from product"); 
             jTable1.setModel(DbUtils.resultSetToTableModel(rs));

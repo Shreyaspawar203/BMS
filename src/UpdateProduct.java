@@ -1,6 +1,12 @@
-import java.sql.*;
-import Project.ConnectionProvider;
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import java.awt.Color;
+import Project.ConnectionProvider.*;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JTable;
+import net.proteanit.sql.DbUtils; 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -165,7 +171,7 @@ public class UpdateProduct extends javax.swing.JFrame {
         String pId=jTextField1.getText();
         try
         {
-           Connection con=ConnectionProvider.getCon();
+           Connection con=Project.ConnectionProvider.main();
             Statement st=con.createStatement();
             ResultSet rs=st.executeQuery("select *from product where pId='"+pId+"'");
             if(rs.next())
@@ -195,7 +201,7 @@ public class UpdateProduct extends javax.swing.JFrame {
         String activate=jTextField5.getText();
         try
         {
-            Connection con=ConnectionProvider.getCon();
+            Connection con=Project.ConnectionProvider.main();
             Statement st=con.createStatement();
             st.executeUpdate("update product set pName='"+pName+"',rate='"+rate+"',description='"+description+"',activate='"+activate+"' wherepId='"+pId+"'");
             JOptionPane.showMessageDialog(null,"Successfully Updated");
