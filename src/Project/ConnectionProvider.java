@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author lenovo
+ * @author lenovo Shreyas
  */
 public class ConnectionProvider {
     public static Connection main(){
@@ -23,6 +23,10 @@ public class ConnectionProvider {
             Logger.getLogger(ConnectionProvider.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public static Connection getCon() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
     
