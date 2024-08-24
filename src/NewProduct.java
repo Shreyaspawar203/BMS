@@ -1,7 +1,12 @@
+import javax.swing.*;
 import java.awt.Color;
-import java.sql.*;
-import Project.ConnectionProvider;
-import javax.swing.JOptionPane;
+import Project.ConnectionProvider.*;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JTable;
+import net.proteanit.sql.DbUtils; 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -52,6 +57,11 @@ public class NewProduct extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(380, 160));
         setUndecorated(true);
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentShown(java.awt.event.ComponentEvent evt) {
+                formComponentShown(evt);
+            }
+        });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/New Product ani.gif"))); // NOI18N
@@ -69,7 +79,7 @@ public class NewProduct extends javax.swing.JFrame {
         jLabel4.setBackground(new java.awt.Color(255, 51, 51));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel4.setText("100");
+        jLabel4.setText("0");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(253, 88, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -173,32 +183,11 @@ public class NewProduct extends javax.swing.JFrame {
         getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(448, 343, -1, -1));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/all page background image.png"))); // NOI18N
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 450));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void formComponentShown(java.awt.event.ComponentEvent evt){
-        try 
-        {
-            Connection con=ConnectionProvider.getCon();
-            Statement st=con.createStatement();
-            ResultSet rs=st.executeQuery("select max(pId) from product");
-            if(rs.first())
-            {
-                int id=rs.getInt(1);
-                id=id+1;
-                String str=String.valueOf(id);
-                jLabel4.setText(str);
-            }
-            else
-                jLabel4.setText("1");
-        }
-        catch(Exception e)
-        {
-            JOptionPane.showMessageDialog(null, e);
-        }
-    }
     
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
@@ -267,16 +256,17 @@ public class NewProduct extends javax.swing.JFrame {
         String pId=jLabel4.getText();
         String pName=jTextField1.getText();
         String rate=jTextField2.getText();
-        String description=jTextfield3.getText();
+        String description=jTextField3.getText();
         String activate=(String)jComboBox1.getSelectedItem();
         try
         {
-            Connection con=ConnectionProvider.getSelectedItem();
+            //Connection con=ConnectionProvider.getSelectedItem();
+            Connection con=Project.ConnectionProvider.main();
             Statement st=con.createStatement();
-            st.executeUpdate("insert int product values('"+pId+"','"+pName+"', '"+rate+"','"+description+"','"+activate+"')");
+            st.executeUpdate("insert into product values('"+pId+"','"+pName+"', '"+rate+"','"+description+"','"+activate+"')");
             JOptionPane.showMessageDialog(null,"Successfully Updated");
             setVisible(false);
-            new newProduct().setVisible(true);
+            new NewProduct().setVisible(true);
         }
         catch(Exception e)
         {
@@ -292,8 +282,29 @@ public class NewProduct extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         setVisible(false);
-        new newProduct().setVisible(true);
+        new NewProduct().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
+        // TODO add your handling code here:
+                try 
+        {
+            Connection con=Project.ConnectionProvider.main();
+            Statement st=con.createStatement();
+            ResultSet rs=st.executeQuery("select max(pId) from product");
+            while (rs.next()) {
+                int id=rs.getInt(1);
+                id=id+1;
+                String str=String.valueOf(id);
+                jLabel4.setText(str);
+            }
+        }
+        catch(Exception e)
+        {
+            JOptionPane.showMessageDialog(null, e);
+        }
+
+    }//GEN-LAST:event_formComponentShown
 
     /**
      * @param args the command line arguments

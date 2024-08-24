@@ -1,5 +1,12 @@
-import java.sql.*;
-import Project.ConnectionProvider;
+import javax.swing.*;
+import java.awt.Color;
+import Project.ConnectionProvider.*;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JTable;
+import net.proteanit.sql.DbUtils; 
 
 
 /*
@@ -199,7 +206,7 @@ public class DeleteBuyer extends javax.swing.JFrame {
         String contactNo=jTextField1.getText();
         try
         {
-            Connection con = ConnectionProvider.getCon();
+            Connection con=Project.ConnectionProvider.main();
             Statement st=con.createStatement();
             ResultSet rs=st.executeQuery("select *from buyer where contactNo='"+contactNo+"'");
             if(rs.next())
@@ -230,7 +237,7 @@ public class DeleteBuyer extends javax.swing.JFrame {
         {
             try
             {
-               Connection con = ConnectionProvider.getCon();
+               Connection con=Project.ConnectionProvider.main();
                 Statement st=con.createStatement();
                 st.executeUpdate("delete form buyer where contactNO'"+contactNo+"'");
                 setVisible(false);
