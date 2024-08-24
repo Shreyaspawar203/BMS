@@ -1,6 +1,12 @@
-import java.sql.*;
-import Project.ConnectionProvider;
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import java.awt.Color;
+import Project.ConnectionProvider.*;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JTable;
+import net.proteanit.sql.DbUtils; 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -151,7 +157,7 @@ public class DeleteProduct extends javax.swing.JFrame {
         getContentPane().add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(422, 392, -1, -1));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/all page background image.png"))); // NOI18N
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 450));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -172,7 +178,7 @@ public class DeleteProduct extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         setVisible(false);
-        new deleteProduct().setVisible(true);
+        new DeleteProduct().setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -180,10 +186,12 @@ public class DeleteProduct extends javax.swing.JFrame {
         String pId=jTextField1.getText();
         try
         {
-            Connection con=ConnectionProvider.getCon();
+            Connection con=Project.ConnectionProvider.main();
             Statement st=con.createStatement();
-            ResultSet rs=st.executeQuery("select *from product where pId='"+pId+"'");
+            ResultSet rs=st.executeQuery("select *from product where pId = '"+pId+"'");
             if(rs.next())
+                
+                        
             {
                 jTextField2.setText(rs.getString(2));
                 jTextField3.setText(rs.getString(3));
@@ -191,23 +199,28 @@ public class DeleteProduct extends javax.swing.JFrame {
                 jTextField5.setText(rs.getString(5));
                 jTextField1.setEditable(false);
             }
+         else
+                JOptionPane.showMessageDialog(null,"ProductId does not Exist");
+        }
+        catch(Exception e)
+        {}
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        String pId=jTextField.getText();
+        String pId=jTextField1.getText();
         int a=JOptionPane.showConfirmDialog(null,"Do you want to Delete","Select",JOptionPane.YES_NO_OPTION);
         if (a==0)
         {
             try
             {
-                Connection con=ConnectionProvider.getCon();
+                Connection con=Project.ConnectionProvider.main();
                 Statement st=con.createStatement();
                 st.executeUpdate("delete from product where pId='"+pId+"'");
                 setVisible(false);
-                new deleteProduct().setVisible(true);
+                new DeleteProduct().setVisible(true);
             }
-            catch(Exeption e)
+            catch(Exception e)
             {
                 JOptionPane.showMessageDialog(null, e);
             }
