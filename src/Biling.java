@@ -1,10 +1,24 @@
 import java.sql.*;
-import Project.ConnectionProvider;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import javax.swing.JOptionPan;
+import javax.swing.*;
+import java.awt.Color;
+import Project.ConnectionProvider.*;
+import java.sql.Connection;
+import java.sql.Statement;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JTable;
+import net.proteanit.sql.DbUtils; 
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
+import java.time.LocalDateTime;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import java.io.FileOutputStream;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -24,6 +38,7 @@ public int finalTotal=0;
         SimpleDateFormat dFormat=new SimpleDateFormat("dd-MM-yyyy");
         Date date=new Date();
         jLabel5.setText(dFormat.format(date));
+        
         
         DateTimeFormatter dtf=DateTimeFormatter.ofPattern("HH:mm:ss");
         LocalDateTime now=LocalDateTime.now();
@@ -346,9 +361,9 @@ public int finalTotal=0;
         String name=jTextField1.getText();
         try
         {
-            Connection con=ConnectionProvider.getCon();
-            Statemant st=con.createStatement();
-            ResultSet re=st.exxecuteQuery("select *from buyer where name like '"+name+"%'")
+            Connection con=Project.ConnectionProvider.main();
+            Statement st=con.createStatement();
+            ResultSet rs=st.executeQuery("select *from buyer where name like '"+name+"%'");
                     if(rs.next())
                     {
                         jTextField1.setText(rs.getString(1));
@@ -363,9 +378,9 @@ public int finalTotal=0;
                         jTextField4.setText("");
                     }
         }
-        catch(Exeption e)
+        catch(Exception e)
         {
-            JOptionPan.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_jTextField1ActionPerformed
 
@@ -374,9 +389,9 @@ public int finalTotal=0;
         String contactNo=jTextField2.getText();
         try
         {
-            Connection con=ConnectionProvider.getCon();
-            Statemant st=con.createStatement();
-            ResultSet re=st.exxecuteQuery("select *from buyer where contactNo like '"+contactNo+"%'")
+            Connection con=Project.ConnectionProvider.main();
+            Statement st=con.createStatement();
+            ResultSet rs=st.executeQuery("select *from buyer where contactNo like '"+contactNo+"%'");
                     if(rs.next())
                     {
                         jTextField1.setText(rs.getString(1));
@@ -391,9 +406,9 @@ public int finalTotal=0;
                         jTextField4.setText("");
                     }
         }
-        catch(Exeption e)
+        catch(Exception e)
         {
-            JOptionPan.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, e);
         }
     }//GEN-LAST:event_jTextField2ActionPerformed
 
@@ -403,9 +418,9 @@ public int finalTotal=0;
         
         try
         {
-            Connection con=ConnectionProvider.getCon();
-            Statemant st=con.createStatement();
-            ResultSet re=st.exxecuteQuery("select *from product where pId='"+pid+"'")
+            Connection con=Project.ConnectionProvider.main();
+            Statement st=con.createStatement();
+            ResultSet rs=st.executeQuery("select *from product where pId='"+pid+"'");
                     if(rs.next())
                     {
                         jTextField6.setText(rs.getString(2));
@@ -421,9 +436,9 @@ public int finalTotal=0;
                         jTextField9.setText("");
                     }
         }
-        catch(Exeption e)
+        catch(Exception e)
         {
-            JOptionPan.showMessageDialog(null, e);
+            JOptionPane.showMessageDialog(null, e);
         }
         
     }//GEN-LAST:event_jTextField5ActionPerformed
@@ -434,8 +449,8 @@ public int finalTotal=0;
         int quantity=Integer.parseInt(jTextField8.getText());
         int total=price*quantity;
         DefaultTableModel model=(DefaultTableModel)jTable2.getModel();
-        model.addRow(new object[]{jTextField6.getText(),jTextField9.getText(),price,quantity,total});
-        finalTotal=finalTotal+total;
+        model.addRow(new Object[]{jTextField6.getText(),jTextField9.getText(),price,quantity,total});
+        finalTotal=finalTotal-total;
         String finalTotal1=String.valueOf(finalTotal);
         jTextField10.setText(finalTotal1);
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -458,16 +473,16 @@ public int finalTotal=0;
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         setVisible(false);
-        new billing().setVisible(true);
+        new Biling().setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         String name=jTextField1.getText();
-        String contctNo=jTextField2.getText();
+        String contactNo=jTextField2.getText();
         String email=jTextField3.getText();
         String address=jTextField4.getText();
-        String path="";
+        String path="C:\\Users\\lenovo\\Desktop";
         com.itextpdf.text.Document doc=new com.itextpdf.text.Document();
         try
         {
@@ -483,7 +498,7 @@ public int finalTotal=0;
             tb1.addCell("Rate");
             tb1.addCell("Quantity");
             tb1.addCell("Sub Total");
-            for(int i=0;i<jTable2.getRawCount();i++)
+            for(int i=0;i<jTable2.getRowCount();i++)
             {
                 String n=jTable2.getValueAt(i, 0).toString();
                 String d=jTable2.getValueAt(i, 1).toString();
@@ -502,11 +517,11 @@ public int finalTotal=0;
             doc.add(paragraph3);
             JOptionPane.showMessageDialog(null,"Bill Generated");
             setVisible(true);
-            new billing.setVisible(true);
+            new Biling().setVisible(true);
             
             
         }
-        catch(Exeption e)
+        catch(Exception e)
         {
             JOptionPane.showMessageDialog(null, e);
         }
