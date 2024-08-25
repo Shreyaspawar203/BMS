@@ -164,11 +164,11 @@ public int finalTotal=0;
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("jLabel5");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(868, 0, 50, -1));
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(868, 0, 90, -1));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setText("jLabel6");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(868, 57, 50, -1));
+        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(868, 57, 90, -1));
         getContentPane().add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 123, 1158, 10));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -448,11 +448,11 @@ public int finalTotal=0;
         int price=Integer.parseInt(jTextField7.getText());
         int quantity=Integer.parseInt(jTextField8.getText());
         int total=price*quantity;
-        DefaultTableModel model=(DefaultTableModel)jTable2.getModel();
+        DefaultTableModel model=(DefaultTableModel)jTable4.getModel();
         model.addRow(new Object[]{jTextField6.getText(),jTextField9.getText(),price,quantity,total});
-        finalTotal=finalTotal-total;
+        finalTotal=finalTotal+total;
         String finalTotal1=String.valueOf(finalTotal);
-        jTextField10.setText(finalTotal1);
+        jTextField12.setText(finalTotal1);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
@@ -461,8 +461,8 @@ public int finalTotal=0;
         int z=Integer.parseInt(paidAmount);
         finalTotal=z-finalTotal;
         String finalTotal1=String.valueOf(finalTotal);
-        jTextField12.setText(finalTotal1);
-        jTextField12.setEditable(false);
+        jTextField10.setText(finalTotal1);
+        jTextField10.setEditable(false);
     }//GEN-LAST:event_jTextField11ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -482,7 +482,7 @@ public int finalTotal=0;
         String contactNo=jTextField2.getText();
         String email=jTextField3.getText();
         String address=jTextField4.getText();
-        String path="C:\\Users\\lenovo\\Desktop";
+        String path="C:\\Users\\lenovo\\OneDrive\\Desktop\\Project";
         com.itextpdf.text.Document doc=new com.itextpdf.text.Document();
         try
         {
@@ -498,13 +498,13 @@ public int finalTotal=0;
             tb1.addCell("Rate");
             tb1.addCell("Quantity");
             tb1.addCell("Sub Total");
-            for(int i=0;i<jTable2.getRowCount();i++)
+            for(int i=0;i<jTable4.getRowCount();i++)
             {
-                String n=jTable2.getValueAt(i, 0).toString();
-                String d=jTable2.getValueAt(i, 1).toString();
-                String r=jTable2.getValueAt(i, 2).toString();
-                String q=jTable2.getValueAt(i, 3).toString();
-                String s=jTable2.getValueAt(i, 4).toString();
+                String n=jTable4.getValueAt(i, 0).toString();
+                String d=jTable4.getValueAt(i, 1).toString();
+                String r=jTable4.getValueAt(i, 2).toString();
+                String q=jTable4.getValueAt(i, 3).toString();
+                String s=jTable4.getValueAt(i, 4).toString();
                 tb1.addCell(n);
                 tb1.addCell(d);
                 tb1.addCell(r);
@@ -512,7 +512,7 @@ public int finalTotal=0;
                 tb1.addCell(s); 
             }
             doc.add(tb1);
-            Paragraph paragraph3=new Paragraph("\nTotal"+jTextField10.getText()+"\nPaid Amount"+jTextField11.getText()+"\nReturn Amount"+jTextField12.getText()+"\n\nThank you for Visiting !Please Come Again.\n");
+            Paragraph paragraph3=new Paragraph("\nTotal"+jTextField12.getText()+"\nPaid Amount"+jTextField11.getText()+"\nReturn Amount"+jTextField10.getText()+"\n\nThank you for Visiting !Please Come Again.\n");
             
             doc.add(paragraph3);
             JOptionPane.showMessageDialog(null,"Bill Generated");
