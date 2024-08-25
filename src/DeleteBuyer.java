@@ -82,7 +82,7 @@ public class DeleteBuyer extends javax.swing.JFrame {
                 jTextField1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 91, 150, 22));
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(221, 91, 150, 20));
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/search.png"))); // NOI18N
@@ -231,7 +231,7 @@ public class DeleteBuyer extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         String contactNo=jTextField1.getText();
-        int a = JOptionPane.showConfirmDialog(null, "Do you want to delete", "Select", JOptionPane.YES_NO_OPTION);
+        int a = JOptionPane.showConfirmDialog(null, "Do you want to Delete","Select",JOptionPane.YES_NO_OPTION);
 
         if(a==0)
         {
@@ -239,7 +239,7 @@ public class DeleteBuyer extends javax.swing.JFrame {
             {
                Connection con=Project.ConnectionProvider.main();
                 Statement st=con.createStatement();
-                st.executeUpdate("delete form buyer where contactNO'"+contactNo+"'");
+                st.executeUpdate("delete from buyer where contactNO='"+contactNo+"'");
                 setVisible(false);
                 new DeleteBuyer().setVisible(true);
             }

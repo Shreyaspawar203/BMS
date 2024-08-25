@@ -203,7 +203,15 @@ public class UpdateProduct extends javax.swing.JFrame {
         {
             Connection con=Project.ConnectionProvider.main();
             Statement st=con.createStatement();
-            st.executeUpdate("update product set pName='"+pName+"',rate='"+rate+"',description='"+description+"',activate='"+activate+"' wherepId='"+pId+"'");
+           st.executeUpdate("update product set pName='"+pName+"',rate='"+rate+"',description='"+description+"',activate='"+activate+"' where pId='"+pId+"'");
+           //String command = "UPDATE product SET pId = ?, pName = ?, rate = ?, description = ?, activate = ? WHERE pId = ?";
+             //PreparedStatement addstmt1 = con.prepareStatement(command);
+             //addstmt1.setObject(1, pName);       
+             //addstmt1.setObject(2, rate);   
+             //addstmt1.setObject(3, description);    
+             //addstmt1.setObject(4, activate);     
+             //addstmt1.executeUpdate();        
+             
             JOptionPane.showMessageDialog(null,"Successfully Updated");
             setVisible(false);
             new UpdateProduct().setVisible(true);

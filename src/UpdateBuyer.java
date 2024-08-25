@@ -241,7 +241,7 @@ try
              PreparedStatement addstmt1 = con.prepareStatement(command);
              addstmt1.setObject(1, name);        // Assuming 'name' is a String
              addstmt1.setObject(2, ContactNo);   // Assuming 'ContactNo' is a String
-             addstmt1.setObject(3, EmailID);     // Assuming 'EmailID' is a String
+             addstmt1.setObject(3, EmailID);     //  Assuming 'EmailID' is a String
              addstmt1.setObject(4, Address);     // Assuming 'Address' is a String
              addstmt1.setObject(5, Gender);
              addstmt1.setObject(6, ContactNo);          // The 'id' of the record to update
@@ -256,7 +256,7 @@ try
                  JOptionPane.showMessageDialog(null, e);
                  }
 
-    //GEN-LAST:event_jButton2ActionPerformed
+                                            
         
         
     }//GEN-LAST:event_jButton2ActionPerformed
