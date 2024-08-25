@@ -256,6 +256,11 @@ public int finalTotal=0;
         getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(868, 288, -1, -1));
 
         jTextField9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jTextField9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField9ActionPerformed(evt);
+            }
+        });
         getContentPane().add(jTextField9, new org.netbeans.lib.awtextra.AbsoluteConstraints(958, 285, 200, -1));
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -448,11 +453,18 @@ public int finalTotal=0;
         int price=Integer.parseInt(jTextField7.getText());
         int quantity=Integer.parseInt(jTextField8.getText());
         int total=price*quantity;
+        String emptyString = "";
         DefaultTableModel model=(DefaultTableModel)jTable4.getModel();
         model.addRow(new Object[]{jTextField6.getText(),jTextField9.getText(),price,quantity,total});
         finalTotal=finalTotal+total;
         String finalTotal1=String.valueOf(finalTotal);
         jTextField12.setText(finalTotal1);
+        jTextField5.setText(emptyString);
+        jTextField6.setText(emptyString);
+        jTextField7.setText(emptyString);
+        jTextField8.setText(emptyString);
+        jTextField9.setText(emptyString);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
@@ -527,6 +539,10 @@ public int finalTotal=0;
         }
         doc.close();
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jTextField9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField9ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField9ActionPerformed
 
     /**
      * @param args the command line arguments
